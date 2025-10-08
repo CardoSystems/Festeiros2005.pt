@@ -1,0 +1,22 @@
+/**
+ * Styles for URL routing functionality
+ */
+
+.section-highlight {
+    animation: section-highlight-animation 2s ease-out;
+}
+
+@keyframes section-highlight-animation {
+    0% {
+        background-color: rgba(255, 255, 0, 0.2);
+        box-shadow: 0 0 20px rgba(255, 255, 0, 0.5);
+    }
+    70% {
+        background-color: rgba(255, 255, 0, 0.1);
+        box-shadow: 0 0 10px rgba(255, 255, 0, 0.3);
+    }
+    100% {
+        background-color: transparent;
+        box-shadow: none;
+    }
+}

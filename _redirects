@@ -1,0 +1,9 @@
+# Redirect all routes to index.html for client-side routing
+/eventos/*    /index.html    200
+/destaques/*  /index.html    200
+/galeria/*    /index.html    200
+/encomenda/*  /index.html    200
+/localizacao/* /index.html   200
+
+# Handle 404 errors
+/*    /index.html   404

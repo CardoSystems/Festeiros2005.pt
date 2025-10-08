@@ -1,0 +1,55 @@
+# Cloudflare Pages Configuration
+
+# Environment Variables for Build
+[build]
+  # Build command that creates the production assets
+  command = "npm run build"
+  
+  # Directory where the built assets will be placed
+  publish = "dist"
+  
+  # Node.js version to use during build
+  node_version = "18"
+
+# Headers to set for different URL patterns
+[[headers]]
+  # Define headers for all pages
+  for = "/*"
+    [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()"
+
+# Special headers for media files to enable caching
+[[headers]]
+  for = "/assets/*"
+    [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Rules for redirecting paths
+[[redirects]]
+  from = "/eventos/*"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/destaques/*"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/galeria/*"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/encomenda/*"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/localizacao/*"
+  to = "/index.html"
+  status = 200

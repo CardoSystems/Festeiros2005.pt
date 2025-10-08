@@ -1,0 +1,54 @@
+/* Video play overlay for when autoplay is blocked */
+.video-play-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    cursor: pointer;
+}
+
+.big-play-button {
+    width: 80px;
+    height: 80px;
+    background: rgba(26, 58, 143, 0.9);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 32px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    border: 4px solid white;
+    transition: all 0.2s ease;
+}
+
+.big-play-button:hover {
+    transform: scale(1.1);
+    background: rgba(26, 58, 143, 1);
+}
+
+/* Video container specific styles */
+.fancybox__container[data-type="html5video"] .fancybox__content {
+    background: black;
+}
+
+/* Make sure video controls are visible */
+video::-webkit-media-controls-panel {
+    display: flex !important;
+    opacity: 1 !important;
+}
+
+/* Touch specific styles for the play button */
+@media (hover: none) {
+    .play-button {
+        width: 70px;
+        height: 70px;
+        font-size: 30px;
+    }
+}
