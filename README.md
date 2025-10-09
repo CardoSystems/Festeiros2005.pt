@@ -1,1 +1,1 @@
-i don't have patience for ths
+i don't have patience for this
