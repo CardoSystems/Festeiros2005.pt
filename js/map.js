@@ -16,8 +16,8 @@ document.addEventListener('DOMContentLoaded', function() {
  */
 function initializeMap() {
     // Coordinates for R. de São Cristovão 4, 2420-091 Caranguejeira
-    const latitude = 39.747821;
-    const longitude = -8.741386;
+    const latitude = 39.7437509;
+    const longitude = -8.7102727;
     
     // Create the map centered on the location
     const map = L.map('map').setView([latitude, longitude], 16);

@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Mantenha-se atualizado sobre os próximos eventos da comunidade no nosso festival local">
+    <title>Calendário de Eventos da Comunidade - Festival Local</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+    <link rel="manifest" href="../site.webmanifest">
+    <!-- FancyBox CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css">
+    <!-- Mobile Gallery CSS -->
+    <link rel="stylesheet" href="mobile-gallery.css">
+    <!-- Video Player CSS -->
+    <link rel="stylesheet" href="video-player.css">
+    <!-- Gallery Highlights CSS -->
+    <link rel="stylesheet" href="gallery-highlights.css">
+    <!-- Form Styles -->
+    <link rel="stylesheet" href="form-styles.css">
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+          crossorigin=""/>
+    <!-- Map Styles -->
+    <link rel="stylesheet" href="map-styles.css">
+    <!-- Mobile Fixes -->
+    <link rel="stylesheet" href="mobile-fixes.css">
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="../assets/logo.jpg" alt="Festival Logo" class="logo">
+        </div>
+        <h1>Calendário de Eventos dos Festeiros 2005</h1>
+        <p class="tagline">Mantenha-se atualizado sobre todos os eventos e atividades locais organizados por nós!</p>
+    </header>
+    <main>
+        <div class="container">
+            <section class="intro">
+                <h2>Calendário de Eventos</h2>
+                <p>Bem-vindo ao nosso calendário de eventos dos Festeiros 2005. Aqui pode encontrar todos os próximos eventos que acontecem na nossa área local. Verifique regularmente pois atualizamos o calendário com novos eventos!</p>
+            </section>
+            
+            <section class="gallery-highlights-section" id="destaques">
+                <h2>Destaques de Eventos</h2>
+                <div id="highlights-alert" class="highlights-alert">
+                    <i>🔍</i> Clique nas imagens para visualizar em tamanho completo
+                    <button class="close-alert" aria-label="Fechar">&times;</button>
+                </div>
+                <div class="gallery-highlights-container">
+                    <a href="../assets/diadejogo.jpg" data-fancybox="highlights" class="highlight-item">
+                        <img src="../assets/diadejogo.jpg" alt="Dia de Jogo" loading="lazy" />
+                        <div class="overlay">
+                            <h3>Dia de Jogo</h3>
+                            <p>Participe nas nossas atividades recreativas e conheça novos amigos</p>
+                        </div>
+                    </a>
+                    <a href="../assets/baraberto.jpg" data-fancybox="highlights" class="highlight-item">
+                        <img src="../assets/baraberto.jpg" alt="Bar Aberto" loading="lazy" />
+                        <div class="overlay">
+                            <h3>Bar Aberto</h3>
+                            <p>Venha desfrutar de bebidas e petiscos no nosso bar comunitário</p>
+                        </div>
+                    </a>
+                </div>
+            </section>
+            
+            <section class="calendar-section" id="eventos-calendario">
+                <h2>Calendário de Eventos</h2>
+                <p class="calendar-description">Consulte todos os eventos programados no nosso calendário atualizado regularmente:</p>
+                
+                <div class="calendar-view-options">
+                    <button id="month-view-btn" class="view-btn active">Vista Mensal</button>
+                    <button id="agenda-view-btn" class="view-btn">Vista de Agenda</button>
+                </div>
+                <div id="calendar" class="calendar">
+                    <div class="calendar-loading">A carregar calendário...</div>
+                    <iframe id="calendar-iframe" 
+                            src="https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=Europe%2FLisbon&title=AGENDA&src=ODE2YTBhOTI2ZWI0NTgwNGQ0NjI5MmU2OWEyNWE5OTJlNDU5Nzg2MjkxMzEzNWEzMDA5NjgxNWI2YTVmZTkyZUBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&color=%23d50000" 
+                            style="border: solid 1px #777" 
+                            width="100%" 
+                            height="650" 
+                            frameborder="0" 
+                            scrolling="no"
+                            onload="this.parentNode.querySelector('.calendar-loading').style.display='none'"></iframe>
+                    <button id="reload-calendar-btn" class="reload-btn" style="display: none;">Recarregar Calendário</button>
+                </div>
+                <div class="calendar-instructions">
+                    <h3>Como Usar Este Calendário</h3>
+                    <ul>
+                        <li>Clique em qualquer evento para ver mais detalhes</li>
+                        <li>Use os botões de navegação para alternar entre meses</li>
+                        <li>Mude a visualização para Dia, Semana, Mês ou Agenda usando as abas</li>
+                        <li>Adicione eventos ao seu próprio calendário clicando neles e selecionando "Copiar para o meu calendário"</li>
+                    </ul>
+                </div>
+            </section>
+            
+               
+            <section class="gallery-section" id="galeria-eventos">
+                <h2>Galeria de Eventos</h2>
+                <div class="fancybox-container">
+                    <div id="gallery-carousel" class="gallery-carousel">
+                        <!-- Images -->
+                        <a href="../assets/baraberto.jpg" data-fancybox="gallery" data-caption="Bar Aberto" class="gallery-item" data-thumb="../assets/baraberto.jpg">
+                            <img src="../assets/baraberto.jpg" alt="Bar Aberto" loading="lazy" />
+                        </a>
+                        <a href="../assets/diadejogo.jpg" data-fancybox="gallery" data-caption="Dia de Jogo" class="gallery-item" data-thumb="../assets/diadejogo.jpg">
+                            <img src="../assets/diadejogo.jpg" alt="Dia de Jogo" loading="lazy" />
+                        </a>
+                        <a href="../assets/paocaseiro.jpg" data-fancybox="gallery" data-caption="Pão Caseiro" class="gallery-item" data-thumb="../assets/paocaseiro.jpg">
+                            <img src="../assets/paocaseiro.jpg" alt="Pão Caseiro" loading="lazy" />
+                        </a>
+                        <!-- Video -->
+                        <a href="../assets/fabrica.mp4" data-fancybox="gallery" data-caption="Vídeo da Fábrica" class="gallery-item" 
+                           data-type="html5video" 
+                           data-thumb="../assets/logo.jpg"
+                           data-width="640" 
+                           data-height="360"
+                           data-poster="../assets/logo.jpg">
+                            <div class="video-thumbnail">
+                                <img src="../assets/logo.jpg" alt="Vídeo da Fábrica" loading="lazy" />
+                                <div class="play-button">▶</div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </div>
+        
+        <section class="form-section" id="encomenda">
+            <div class="container">
+                <div class="form-container">
+                    <h2>Encomendar Pão</h2>
+                    <p>Preencha o formulário abaixo para encomendar o seu pão caseiro</p>
+                    
+                    <form action="https://api.web3forms.com/submit" method="POST" id="order-form">
+                        <!-- Web3Forms Access Key (Placeholder) -->
+                        <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_ACCESS_KEY_HERE">
+                        
+                        <div class="form-group">
+                            <label for="name">Nome</label>
+                            <input type="text" id="name" name="name" class="form-control" placeholder="Seu nome completo" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="quantity">Quantidade de Pães</label>
+                            <input type="number" id="quantity" name="quantidade" class="form-control" min="1" placeholder="Número de pães desejados" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone">Número de Telefone</label>
+                            <input type="tel" id="phone" name="telefone" class="form-control" placeholder="Seu número de contacto" required>
+                        </div>
+                        
+                        <!-- Honeypot field to prevent spam -->
+                        <input type="checkbox" name="botcheck" id="botcheck" style="display: none !important;">
+                        
+                        <button type="submit" class="submit-btn">Encomendar Agora</button>
+                        
+                        <div class="form-success">
+                            A sua encomenda foi enviada com sucesso! Entraremos em contacto brevemente.
+                        </div>
+                        
+                        <div class="form-error">
+                            Ocorreu um erro ao enviar a sua encomenda. Por favor tente novamente.
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+        
+        <section class="map-section" id="localizacao">
+            <div class="container">
+                <h2>Localização</h2>
+                <p class="map-description">Visite-nos na nossa localização em Caranguejeira:</p>
+                <div class="map-container">
+                    <div id="map"></div>
+                    <div class="map-address">
+                        <h3>Endereço</h3>
+                        <p><i class="map-marker"></i> R. de São Cristovão 4, 2420-091 Caranguejeira</p>
+                        <a href="https://www.google.com/maps/dir/?api=1&destination=R.+de+São+Cristovão+4,+2420-091+Caranguejeira,+Portugal" target="_blank" class="directions-btn">Como Chegar</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+        <section class="subscribe-section">
+                <h2>Receba Atualizações de Eventos</h2>
+                <p>Subscreva o nosso calendário para receber notificações sobre novos eventos:</p>
+                <button id="subscribe-button" class="btn">Subscrever Calendário</button>
+        </section>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Contacte-nos</h3>
+                    <p>Email: info@localfestival.com</p>
+                    <p>Telefone: (+351) 123 456 789</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Siga-nos</h3>
+                    <div class="social-links">
+                        <a href="#" class="social-link">Facebook</a>
+                        <a href="#" class="social-link">Instagram</a>
+                        <a href="#" class="social-link">Twitter</a>
+                    </div>
+                </div>
+            </div>
+            <p class="copyright">&copy; 2025 Festival Local. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+    
+    <!-- FancyBox JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
+    <!-- Main Script -->
+    <script src="../src/scripts/main.js"></script>
+    <!-- Highlights Script -->
+    <script src="../src/scripts/highlights.js"></script>
+    <!-- Highlights Alert Script -->
+    <script src="../src/scripts/highlights-alert.js"></script>
+    <!-- Form Script -->
+    <script src="../src/scripts/form.js"></script>
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+            crossorigin=""></script>
+    <!-- Map Script -->
+    <script src="../src/scripts/map.js"></script>
+</body>
+</html>
