@@ -210,6 +210,53 @@ section {
     border-radius: 20px;
 }
 
+.poster-share-bar {
+    margin: 16px auto 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.poster-share-label {
+    font-weight: 700;
+    color: #7d3f1c;
+    margin-right: 2px;
+}
+
+.poster-share-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 14px;
+    border-radius: 999px;
+    text-decoration: none;
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.poster-share-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(30, 12, 0, 0.2);
+}
+
+.poster-share-btn--facebook {
+    background: linear-gradient(135deg, #1877f2 0%, #1157be 100%);
+}
+
+.poster-share-btn--whatsapp {
+    background: linear-gradient(135deg, #25d366 0%, #15803d 100%);
+}
+
+.poster-share-icon {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+}
+
 .poster-note {
     margin: 14px 0 0;
     font-size: 0.98rem;
@@ -759,6 +806,21 @@ body.popup-open {
     .poster-frame img {
         max-height: min(72vh, 640px);
         border-radius: 12px;
+    }
+
+    .poster-share-bar {
+        margin-top: 14px;
+        gap: 8px;
+    }
+
+    .poster-share-label {
+        width: 100%;
+        margin-right: 0;
+    }
+
+    .poster-share-btn {
+        min-width: 150px;
+        justify-content: center;
     }
 
     .poster-auto-modal__dialog {

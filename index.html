@@ -65,7 +65,21 @@
                 <a href="assets/120dbfe0-1.png" class="poster-frame">
                     <img src="assets/120dbfe0-1.png" alt="Cartaz oficial das festas" loading="eager" fetchpriority="high" />
                 </a>
-                <p class="poster-note">Quando o cartaz ficar totalmente visivel no ecrã, abre automaticamente. Ao sair do ecrã, fecha automaticamente.</p>
+                <div class="poster-share-bar" aria-label="Partilhar cartaz oficial">
+                    <span class="poster-share-label">Partilhar cartaz:</span>
+                    <a id="poster-share-facebook" class="poster-share-btn poster-share-btn--facebook" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ffesteiros2005.pt%2F%23cartaz-festas" target="_blank" rel="noopener noreferrer" aria-label="Partilhar cartaz no Facebook">
+                        <svg class="poster-share-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                            <path fill="currentColor" d="M13.5 8H16V5h-2.5C10.7 5 9 6.7 9 9.5V12H7v3h2v6h3v-6h2.4l.6-3H12V9.7c0-1 .3-1.7 1.5-1.7z"/>
+                        </svg>
+                        <span>Facebook</span>
+                    </a>
+                    <a id="poster-share-whatsapp" class="poster-share-btn poster-share-btn--whatsapp" href="https://api.whatsapp.com/send?text=Veja%20o%20cartaz%20oficial%20das%20festas%3A%20https%3A%2F%2Ffesteiros2005.pt%2F%23cartaz-festas" target="_blank" rel="noopener noreferrer" aria-label="Partilhar cartaz no WhatsApp">
+                        <svg class="poster-share-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                            <path fill="currentColor" d="M20.5 3.5A11 11 0 0 0 3.9 17.2L2.5 22l4.9-1.3A11 11 0 1 0 20.5 3.5zm-8 17.6c-1.8 0-3.5-.5-5-1.4l-.4-.2-2.9.8.8-2.8-.2-.4a8.9 8.9 0 1 1 7.7 4zM17.4 14c-.3-.2-1.8-.9-2.1-1s-.5-.2-.7.2-.8 1-1 1.1-.4.2-.7.1a7.1 7.1 0 0 1-3.5-3.1c-.2-.3 0-.5.1-.7l.5-.6c.1-.2.2-.4.3-.6.1-.2 0-.5 0-.6 0-.2-.7-1.8-1-2.4-.2-.5-.5-.4-.7-.4h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.1-1.2 2.8s1.2 3.3 1.3 3.5c.2.2 2.3 3.6 5.6 5 .8.3 1.4.5 1.9.6.8.3 1.6.2 2.2.1.7-.1 1.8-.8 2-1.6.3-.8.3-1.5.2-1.6-.1-.1-.3-.2-.6-.4z"/>
+                        </svg>
+                        <span>WhatsApp</span>
+                    </a>
+                </div>
             </section>
 
             <section class="map-section" id="localizacao">
@@ -93,13 +107,13 @@
                 <p class="calendar-description">Consulte todos os eventos programados no nosso calendário atualizado regularmente:</p>
                 
                 <div class="calendar-view-options">
-                    <button id="month-view-btn" class="view-btn active">Vista Mensal</button>
-                    <button id="agenda-view-btn" class="view-btn">Vista de Agenda</button>
+                    <button id="month-view-btn" class="view-btn">Vista Mensal</button>
+                    <button id="agenda-view-btn" class="view-btn active">Vista de Agenda</button>
                 </div>
                 <div id="calendar" class="calendar">
                     <div class="calendar-loading">A carregar calendário...</div>
                     <iframe id="calendar-iframe" 
-                            src="https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=Europe%2FLisbon&title=AGENDA&src=ODE2YTBhOTI2ZWI0NTgwNGQ0NjI5MmU2OWEyNWE5OTJlNDU5Nzg2MjkxMzEzNWEzMDA5NjgxNWI2YTVmZTkyZUBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&color=%23d50000" 
+                            src="https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=Europe%2FLisbon&title=AGENDA&src=ODE2YTBhOTI2ZWI0NTgwNGQ0NjI5MmU2OWEyNWE5OTJlNDU5Nzg2MjkxMzEzNWEzMDA5NjgxNWI2YTVmZTkyZUBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&color=%23d50000&mode=AGENDA" 
                             style="border: solid 1px #777" 
                             width="100%" 
                             height="650" 

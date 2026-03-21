@@ -24,6 +24,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Setup footer share icon
     setupShareButton();
+
+    // Setup poster share bar links
+    setupPosterShareBar();
     
     // Add current year to copyright
     const copyrightEl = document.querySelector('.copyright');
@@ -41,6 +44,25 @@ function setupShareButton() {
         const whatsappShareUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(websiteUrl)}`;
         window.open(whatsappShareUrl, '_blank', 'noopener,noreferrer');
     });
+}
+
+function setupPosterShareBar() {
+    const facebookBtn = document.getElementById('poster-share-facebook');
+    const whatsappBtn = document.getElementById('poster-share-whatsapp');
+    if (!facebookBtn && !whatsappBtn) return;
+
+    const posterUrl = 'https://festeiros2005.pt/#cartaz-festas';
+    const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(posterUrl)}`;
+    const whatsappText = `Veja o cartaz oficial das festas: ${posterUrl}`;
+    const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(whatsappText)}`;
+
+    if (facebookBtn) {
+        facebookBtn.setAttribute('href', facebookUrl);
+    }
+
+    if (whatsappBtn) {
+        whatsappBtn.setAttribute('href', whatsappUrl);
+    }
 }
 
 function setupCalendar() {
