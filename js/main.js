@@ -15,9 +15,15 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Initialize FancyBox gallery
     setupFancyBox();
+
+    // Auto open/close poster preview based on viewport visibility
+    setupAutoPosterPreview();
     
     // Setup public URL switcher
     setupPublicUrlSwitcher();
+
+    // Setup footer share icon
+    setupShareButton();
     
     // Add current year to copyright
     const copyrightEl = document.querySelector('.copyright');
@@ -25,6 +31,17 @@ document.addEventListener('DOMContentLoaded', () => {
         copyrightEl.innerHTML = copyrightEl.innerHTML.replace('2025', new Date().getFullYear());
     }
 });
+
+function setupShareButton() {
+    const shareBtn = document.getElementById('share-site-btn');
+    if (!shareBtn) return;
+
+    shareBtn.addEventListener('click', () => {
+        const websiteUrl = 'https://festeiros2005.pt';
+        const whatsappShareUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(websiteUrl)}`;
+        window.open(whatsappShareUrl, '_blank', 'noopener,noreferrer');
+    });
+}
 
 function setupCalendar() {
     const calendarContainer = document.getElementById('calendar');
@@ -254,7 +271,7 @@ function setupFancyBox() {
     }
     
     // Initialize FancyBox with options
-    Fancybox.bind('[data-fancybox="gallery"]', {
+    Fancybox.bind('[data-fancybox]', {
         // Auto start slideshow
         Toolbar: {
             display: {
@@ -550,6 +567,96 @@ function startGalleryRotation() {
             galleryLinks[currentIndex].style.transform = '';
         }, 500);
     }, 3000); // 3 seconds interval
+}
+
+function setupAutoPosterPreview() {
+    const posterFrame = document.querySelector('.poster-frame');
+    const posterImage = posterFrame ? posterFrame.querySelector('img') : null;
+
+    if (!posterFrame || !posterImage) return;
+
+    // Keep the poster container from navigating away when clicked.
+    posterFrame.addEventListener('click', (event) => {
+        event.preventDefault();
+    });
+
+    const modal = document.createElement('div');
+    modal.className = 'poster-auto-modal';
+    modal.innerHTML = `
+        <div class="poster-auto-modal__backdrop" aria-hidden="true"></div>
+        <div class="poster-auto-modal__dialog" role="dialog" aria-label="Cartaz oficial em destaque">
+            <img class="poster-auto-modal__image" alt="" />
+        </div>
+    `;
+
+    document.body.appendChild(modal);
+
+    const modalImage = modal.querySelector('.poster-auto-modal__image');
+    const modalBackdrop = modal.querySelector('.poster-auto-modal__backdrop');
+    let isOpen = false;
+    let allowAutoOpen = true;
+
+    const getThresholds = () => {
+        const isMobile = window.matchMedia('(max-width: 768px)').matches;
+        return isMobile
+            ? { openThreshold: 0.62, closeThreshold: 0.48 }
+            : { openThreshold: 0.9, closeThreshold: 0.82 };
+    };
+
+    const { openThreshold, closeThreshold } = getThresholds();
+
+    const openPreview = () => {
+        if (isOpen || !allowAutoOpen) return;
+
+        modalImage.src = posterImage.currentSrc || posterImage.src;
+        modalImage.alt = posterImage.alt || 'Cartaz oficial das festas';
+        modal.classList.add('is-open');
+        posterFrame.classList.add('is-preview-open');
+        isOpen = true;
+    };
+
+    const closePreview = () => {
+        if (!isOpen) return;
+
+        modal.classList.remove('is-open');
+        posterFrame.classList.remove('is-preview-open');
+        isOpen = false;
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        const entry = entries[0];
+        if (!entry) return;
+
+        const shouldOpen = entry.intersectionRatio >= openThreshold;
+        const shouldClose = entry.intersectionRatio < closeThreshold;
+
+        if (shouldOpen) {
+            openPreview();
+        } else if (shouldClose) {
+            closePreview();
+            allowAutoOpen = true;
+        }
+    }, {
+        threshold: [0, closeThreshold, openThreshold, 1]
+    });
+
+    observer.observe(posterFrame);
+
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && isOpen) {
+            closePreview();
+            allowAutoOpen = false;
+        }
+    });
+
+    // Close only when tapping the backdrop, not on any screen touch.
+    if (modalBackdrop) {
+        modalBackdrop.addEventListener('pointerdown', () => {
+            if (!isOpen) return;
+            closePreview();
+            allowAutoOpen = false;
+        });
+    }
 }
 
 /**

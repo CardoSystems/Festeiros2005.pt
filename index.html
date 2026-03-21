@@ -14,12 +14,6 @@
     <link rel="manifest" href="site.webmanifest">
     <!-- FancyBox CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css">
-    <!-- Mobile Gallery CSS -->
-    <link rel="stylesheet" href="css/mobile-gallery.css">
-    <!-- Video Player CSS -->
-    <link rel="stylesheet" href="css/video-player.css">
-    <!-- Gallery Highlights CSS -->
-    <link rel="stylesheet" href="css/gallery-highlights.css">
     <!-- Form Styles -->
     <link rel="stylesheet" href="css/form-styles.css">
     <!-- Leaflet CSS -->
@@ -47,9 +41,7 @@
         <div class="container">
             <ul class="nav-links">
                 <li><a href="/eventos">Calendário</a></li>
-                <li><a href="/destaques">Destaques</a></li>
-                <li><a href="/galeria">Galeria</a></li>
-                <li><a href="/encomenda">Encomendar Pão</a></li>
+                <li><a href="/galeria">Galeria (em breve 😉)</a></li>
                 <li><a href="/localizacao">Localização</a></li>
             </ul>
         </div>
@@ -57,33 +49,43 @@
     
     <main style="padding-top: 20px;">
         <div class="container">
+            <section class="poster-showcase" id="cartaz-festas">
+                <div class="sparkles" aria-hidden="true">
+                    <span class="sparkle s1"></span>
+                    <span class="sparkle s2"></span>
+                    <span class="sparkle s3"></span>
+                    <span class="sparkle s4"></span>
+                    <span class="sparkle s5"></span>
+                    <span class="sparkle s6"></span>
+                    <span class="sparkle s7"></span>
+                    <span class="sparkle s8"></span>
+                </div>
+                <h2>Cartaz Oficial das Festas</h2>
+                <p class="poster-subtitle">Tudo o que precisa para se preparar para os dias grandes.</p>
+                <a href="assets/120dbfe0-1.png" class="poster-frame">
+                    <img src="assets/120dbfe0-1.png" alt="Cartaz oficial das festas" loading="eager" fetchpriority="high" />
+                </a>
+                <p class="poster-note">Quando o cartaz ficar totalmente visivel no ecrã, abre automaticamente. Ao sair do ecrã, fecha automaticamente.</p>
+            </section>
+
+            <section class="map-section" id="localizacao">
+                <div class="container">
+                    <h2>Localização</h2>
+                    <p class="map-description">Visite-nos na nossa localização em Caranguejeira:</p>
+                    <div class="map-container">
+                        <div id="map"></div>
+                        <div class="map-address">
+                            <h3>Endereço</h3>
+                            <p><i class="map-marker"></i> R. de São Cristovão 4, 2420-091 Caranguejeira</p>
+                            <a href="https://www.google.com/maps/dir/?api=1&destination=R.+de+São+Cristovão+4,+2420-091+Caranguejeira,+Portugal" target="_blank" class="directions-btn">Como Chegar</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             <section class="intro">
                 <h2>Calendário de Eventos</h2>
                 <p>Bem-vindo ao nosso calendário de eventos dos Festeiros 2005. Aqui pode encontrar todos os próximos eventos que acontecem na nossa área local. Verifique regularmente pois atualizamos o calendário com novos eventos!</p>
-            </section>
-            
-            <section class="gallery-highlights-section" id="destaques">
-                <h2>Destaques de Eventos</h2>
-                <div id="highlights-alert" class="highlights-alert">
-                    <i>🔍</i> Clique nas imagens para visualizar em tamanho completo
-                    <button class="close-alert" aria-label="Fechar">&times;</button>
-                </div>
-                <div class="gallery-highlights-container">
-                    <a href="assets/diadejogo.jpg" data-fancybox="highlights" class="highlight-item">
-                        <img src="assets/diadejogo.jpg" alt="Dia de Jogo" loading="lazy" />
-                        <div class="overlay">
-                            <h3>Dia de Jogo</h3>
-                            <p>Participe nas nossas atividades recreativas e conheça novos amigos</p>
-                        </div>
-                    </a>
-                    <a href="assets/baraberto.jpg" data-fancybox="highlights" class="highlight-item">
-                        <img src="assets/baraberto.jpg" alt="Bar Aberto" loading="lazy" />
-                        <div class="overlay">
-                            <h3>Bar Aberto</h3>
-                            <p>Venha desfrutar de bebidas e petiscos no nosso bar comunitário</p>
-                        </div>
-                    </a>
-                </div>
             </section>
             
             <section class="calendar-section" id="eventos-calendario">
@@ -106,123 +108,82 @@
                             onload="this.parentNode.querySelector('.calendar-loading').style.display='none'"></iframe>
                     <button id="reload-calendar-btn" class="reload-btn" style="display: none;">Recarregar Calendário</button>
                 </div>
-                <div class="calendar-instructions">
-                    <h3>Como Usar Este Calendário</h3>
-                    <ul>
-                        <li>Clique em qualquer evento para ver mais detalhes</li>
-                        <li>Use os botões de navegação para alternar entre meses</li>
-                        <li>Mude a visualização para Dia, Semana, Mês ou Agenda usando as abas</li>
-                        <li>Adicione eventos ao seu próprio calendário clicando neles e selecionando "Copiar para o meu calendário"</li>
-                    </ul>
-                </div>
             </section>
             
-            
-            <section class="gallery-section" id="galeria-eventos">
-                <h2>Galeria de Eventos</h2>
-                <div class="fancybox-container">
-                    <div id="gallery-carousel" class="gallery-carousel">
-                        <!-- Images -->
-                        <a href="assets/baraberto.jpg" data-fancybox="gallery" data-caption="Bar Aberto" class="gallery-item" data-thumb="assets/baraberto.jpg">
-                            <img src="assets/baraberto.jpg" alt="Bar Aberto" loading="lazy" />
-                        </a>
-                        <a href="assets/diadejogo.jpg" data-fancybox="gallery" data-caption="Dia de Jogo" class="gallery-item" data-thumb="assets/diadejogo.jpg">
-                            <img src="assets/diadejogo.jpg" alt="Dia de Jogo" loading="lazy" />
-                        </a>
-                        <a href="assets/paocaseiro.jpg" data-fancybox="gallery" data-caption="Pão Caseiro" class="gallery-item" data-thumb="assets/paocaseiro.jpg">
-                            <img src="assets/paocaseiro.jpg" alt="Pão Caseiro" loading="lazy" />
-                        </a>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </section>
         </div>
-        
-        <section class="form-section" id="encomenda">
-            <div class="container">
-                <div class="form-container">
-                    <h2>Encomendar Pão</h2>
-                    <p>Preencha o formulário abaixo para encomendar o seu pão caseiro</p>
-                    
-                    <form action="https://api.web3forms.com/submit" method="POST" id="order-form">
-                        <!-- Web3Forms Access Key -->
-                        <input type="hidden" name="access_key" value="12018f3f-04d5-47e2-a9e8-13e05bb42c2b">
-                        
-                        <div class="form-group">
-                            <label for="name">Nome</label>
-                            <input type="text" id="name" name="name" class="form-control" placeholder="Seu nome completo" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="quantity">Quantidade de Pães</label>
-                            <input type="number" id="quantity" name="quantidade" class="form-control" min="1" placeholder="Número de pães desejados" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="phone">Número de Telefone</label>
-                            <input type="tel" id="phone" name="telefone" class="form-control" placeholder="Seu número de contacto" required>
-                        </div>
-                        
-                        <!-- Honeypot field to prevent spam -->
-                        <input type="checkbox" name="botcheck" id="botcheck" style="display: none !important;">
-                        
-                        <button type="submit" class="submit-btn">Encomendar Agora</button>
-                        
-                        <div class="form-success">
-                            A sua encomenda foi enviada com sucesso! Entraremos em contacto brevemente.
-                        </div>
-                        
-                        <div class="form-error">
-                            Ocorreu um erro ao enviar a sua encomenda. Por favor tente novamente.
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </section>
-      
-        <section class="map-section" id="localizacao">
-            <div class="container">
-                <h2>Localização</h2>
-                <p class="map-description">Visite-nos na nossa localização em Caranguejeira:</p>
-                <div class="map-container">
-                    <div id="map"></div>
-                    <div class="map-address">
-                        <h3>Endereço</h3>
-                        <p><i class="map-marker"></i> R. de São Cristovão 4, 2420-091 Caranguejeira</p>
-                        <a href="https://www.google.com/maps/dir/?api=1&destination=R.+de+São+Cristovão+4,+2420-091+Caranguejeira,+Portugal" target="_blank" class="directions-btn">Como Chegar</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
 
-    <section class="subscribe-section">
-        <h2>Receba Atualizações de Eventos</h2>
-        <p>Subscreva o nosso calendário para receber notificações sobre novos eventos:</p>
-        <button id="subscribe-button" class="btn">Subscrever Calendário</button>
-    </section>
+    </main>
 
     <footer>
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
                     <h3>Contacte-nos</h3>
-                    <p>Email: ola@festeiros2005.pt</p>
+                    <button type="button" id="open-contact-popup" class="footer-contact-btn">Enviar Email</button>
                     
                 </div>
                 <div class="footer-section">
                     <h3>Siga-nos</h3>
                     <div class="social-links">
-                        <a href="https://www.facebook.com/profile.php?id=100092446081568" class="social-link">Facebook</a>
-                        <a href="https://www.instagram.com/jovensfesteiros2005" class="social-link">Instagram</a>
-                        </div>
+                        <a href="https://www.facebook.com/profile.php?id=100092446081568" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                            <svg class="social-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                                <path fill="currentColor" d="M13.5 8H16V5h-2.5C10.7 5 9 6.7 9 9.5V12H7v3h2v6h3v-6h2.4l.6-3H12V9.7c0-1 .3-1.7 1.5-1.7z"/>
+                            </svg>
+                        </a>
+                        <a href="https://www.instagram.com/jovensfesteiros2005" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                            <svg class="social-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                                <path fill="currentColor" d="M7.8 3h8.4A4.8 4.8 0 0 1 21 7.8v8.4a4.8 4.8 0 0 1-4.8 4.8H7.8A4.8 4.8 0 0 1 3 16.2V7.8A4.8 4.8 0 0 1 7.8 3zm0 1.8A3 3 0 0 0 4.8 7.8v8.4a3 3 0 0 0 3 3h8.4a3 3 0 0 0 3-3V7.8a3 3 0 0 0-3-3H7.8zm9.15 1.35a1.05 1.05 0 1 1 0 2.1 1.05 1.05 0 0 1 0-2.1zM12 7.5A4.5 4.5 0 1 1 7.5 12 4.5 4.5 0 0 1 12 7.5zm0 1.8A2.7 2.7 0 1 0 14.7 12 2.7 2.7 0 0 0 12 9.3z"/>
+                            </svg>
+                        </a>
+                        <button type="button" id="share-site-btn" class="social-link social-link--button" aria-label="Partilhar website">
+                            <svg class="social-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                                <path fill="currentColor" d="M18 16.1c-.8 0-1.5.3-2 .9L8.9 12.9c.1-.3.1-.6.1-.9s0-.6-.1-.9l7-4.1c.5.6 1.2.9 2 .9A3.1 3.1 0 1 0 14.8 5c0 .3.1.6.1.9l-7 4.1a3.1 3.1 0 1 0 0 4l7.1 4.2c0 .2-.1.5-.1.8a3.1 3.1 0 1 0 3.1-3z"/>
+                            </svg>
+                        </button>
+                    </div>
                 </div>
             </div>
             <p class="copyright">&copy; 2025 Festeiros2005.pt Todos os direitos reservados.</p>
 <p>Feito por: Diogo Cardoso</p>
         </div>
     </footer>
+
+    <div id="contact-popup" class="contact-popup" aria-hidden="true">
+        <div class="contact-popup__backdrop" data-close-contact-popup="true"></div>
+        <div class="contact-popup__dialog" role="dialog" aria-modal="true" aria-labelledby="contact-popup-title">
+            <button type="button" class="contact-popup__close" id="close-contact-popup" aria-label="Fechar">&times;</button>
+            <h2 id="contact-popup-title">Enviar Mensagem</h2>
+            <p>Preencha o formulário para entrar em contacto connosco.</p>
+
+            <form action="https://api.web3forms.com/submit" method="POST" id="contact-form">
+                <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_ACCESS_KEY_HERE">
+                <input type="hidden" name="subject" value="Contacto do website - Festeiros 2005">
+                <input type="hidden" name="from_name" value="Festeiros 2005 Website">
+
+                <div class="form-group">
+                    <label for="sender-email">O seu Email</label>
+                    <input type="email" id="sender-email" name="email" class="form-control" placeholder="seuemail@exemplo.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="sender-description">Descrição</label>
+                    <textarea id="sender-description" name="message" class="form-control" rows="5" placeholder="Escreva aqui a sua mensagem" required></textarea>
+                </div>
+
+                <input type="checkbox" name="botcheck" style="display: none !important;">
+
+                <button type="submit" class="submit-btn">Enviar Mensagem</button>
+
+                <div class="form-success">
+                    A sua mensagem foi enviada com sucesso.
+                </div>
+
+                <div class="form-error">
+                    Ocorreu um erro ao enviar a mensagem. Por favor tente novamente.
+                </div>
+            </form>
+        </div>
+    </div>
     
     <!-- FancyBox JS -->
     <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
@@ -230,11 +191,6 @@
     <script src="js/hamburger-menu.js"></script>
     <!-- Main Script -->
     <script src="js/main.js"></script>
-    <!-- Highlights Script -->
-    <script src="js/highlights.js"></script>
-    <!-- Highlights Alert Script -->
-    <script src="js/highlights-alert.js"></script>
-    <!-- Form Script -->
     <script src="js/form.js"></script>
     <!-- Leaflet JS -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
