@@ -585,6 +585,7 @@ function setupAutoPosterPreview() {
     modal.innerHTML = `
         <div class="poster-auto-modal__backdrop" aria-hidden="true"></div>
         <div class="poster-auto-modal__dialog" role="dialog" aria-label="Cartaz oficial em destaque">
+            <button type="button" class="poster-auto-modal__close" aria-label="Fechar">&times;</button>
             <img class="poster-auto-modal__image" alt="" />
         </div>
     `;
@@ -593,6 +594,7 @@ function setupAutoPosterPreview() {
 
     const modalImage = modal.querySelector('.poster-auto-modal__image');
     const modalBackdrop = modal.querySelector('.poster-auto-modal__backdrop');
+    const modalCloseButton = modal.querySelector('.poster-auto-modal__close');
     let isOpen = false;
     let allowAutoOpen = true;
 
@@ -652,6 +654,14 @@ function setupAutoPosterPreview() {
     // Close only when tapping the backdrop, not on any screen touch.
     if (modalBackdrop) {
         modalBackdrop.addEventListener('pointerdown', () => {
+            if (!isOpen) return;
+            closePreview();
+            allowAutoOpen = false;
+        });
+    }
+
+    if (modalCloseButton) {
+        modalCloseButton.addEventListener('click', () => {
             if (!isOpen) return;
             closePreview();
             allowAutoOpen = false;
