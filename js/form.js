@@ -5,6 +5,10 @@ document.addEventListener('DOMContentLoaded', function() {
     setupContactPopup();
 });
 
+function isValidUuid(value) {
+    return /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(value);
+}
+
 function setupFormSubmission(formElement) {
     if (!formElement) return;
 
@@ -24,6 +28,17 @@ function setupFormSubmission(formElement) {
         const formData = new FormData(formElement);
         formSuccess.style.display = 'none';
         formError.style.display = 'none';
+
+        const accessKey = String(formData.get('access_key') || '').trim();
+        const formId = String(formData.get('form_id') || '').trim();
+
+        if (!isValidUuid(accessKey) || (formId && !isValidUuid(formId))) {
+            formError.style.display = 'block';
+            formError.textContent = 'Configuração inválida do formulário: o access_key/form_id tem de ser um UUID válido. Atualize a chave Web3Forms no HTML.';
+            submitBtn.textContent = originalBtnText;
+            submitBtn.disabled = false;
+            return;
+        }
 
         fetch('https://api.web3forms.com/submit', {
             method: 'POST',
