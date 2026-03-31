@@ -365,6 +365,81 @@ section {
 .sparkle.s7 { top: 58%; left: 80%; animation-delay: 4s; }
 .sparkle.s8 { top: 86%; right: 30%; animation-delay: 4.6s; }
 
+.vod-section {
+    margin: 30px auto 40px;
+    padding: 24px 18px;
+    border-radius: 20px;
+    background: linear-gradient(145deg, #0f2245 0%, #183466 45%, #23508f 100%);
+    box-shadow: 0 16px 32px rgba(11, 24, 49, 0.28);
+    color: #f4f8ff;
+}
+
+.vod-section h2 {
+    margin: 0;
+    font-size: 2rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.vod-subtitle {
+    margin: 8px 0 20px;
+    color: rgba(236, 244, 255, 0.9);
+    font-size: 1.03rem;
+}
+
+.vod-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 16px;
+}
+
+.vod-card {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(173, 205, 255, 0.42);
+    box-shadow: 0 14px 26px rgba(6, 11, 25, 0.35);
+    display: block;
+    background: #091326;
+}
+
+.vod-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(3, 9, 19, 0.05) 20%, rgba(3, 9, 19, 0.45) 100%);
+    pointer-events: none;
+}
+
+.vod-preview-video {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    transform: scale(1.02);
+    transition: transform 0.28s ease;
+}
+
+.vod-card:hover .vod-preview-video {
+    transform: scale(1.06);
+}
+
+.vod-play-badge {
+    position: absolute;
+    left: 14px;
+    bottom: 14px;
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.92);
+    color: #0f2245;
+    font-size: 0.86rem;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+}
+
 @keyframes floatSparkle {
     0% { transform: translateY(0) scale(0.8); opacity: 0.35; }
     50% { transform: translateY(-14px) scale(1.25); opacity: 0.95; }
@@ -846,6 +921,19 @@ body.popup-open {
         height: 36px;
         font-size: 1.5rem;
     }
+
+    .vod-section {
+        padding: 18px 12px;
+        border-radius: 14px;
+    }
+
+    .vod-section h2 {
+        font-size: 1.45rem;
+    }
+
+    .vod-subtitle {
+        font-size: 0.96rem;
+    }
     
     .tagline {
         font-size: 1rem;
@@ -895,6 +983,10 @@ body.popup-open {
 
     .poster-note {
         font-size: 0.9rem;
+    }
+
+    .vod-grid {
+        grid-template-columns: 1fr;
     }
     
     h1 {

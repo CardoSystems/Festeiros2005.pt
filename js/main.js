@@ -27,6 +27,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Setup poster share bar links
     setupPosterShareBar();
+
+    // Setup VOD muted autoplay + interaction-based sound enable
+    setupVodAudioExperience();
     
     // Add current year to copyright
     const copyrightEl = document.querySelector('.copyright');
@@ -554,6 +557,87 @@ function setupFancyBox() {
     
     // Start automatic rotation for thumbnails in the page
     startGalleryRotation();
+
+    // Ensure VOD videos opened in FancyBox start muted, then can be unmuted after user interaction.
+    document.addEventListener('click', (event) => {
+        const target = event.target;
+        if (!(target instanceof Element)) return;
+
+        const vodTrigger = target.closest('[data-fancybox="vod"]');
+        if (!vodTrigger) return;
+
+        setTimeout(() => {
+            const activeVideo = document.querySelector('.fancybox__container video');
+            if (!(activeVideo instanceof HTMLVideoElement)) return;
+            activeVideo.muted = true;
+            activeVideo.volume = 0;
+
+            const playPromise = activeVideo.play();
+            if (playPromise && typeof playPromise.catch === 'function') {
+                playPromise.catch(() => {
+                    // Ignore autoplay rejections; FancyBox controls are still available.
+                });
+            }
+        }, 120);
+    });
+}
+
+function setupVodAudioExperience() {
+    const vodSection = document.getElementById('vod');
+    if (!vodSection) return;
+
+    const previewVideos = Array.from(vodSection.querySelectorAll('.vod-preview-video'));
+    if (!previewVideos.length) return;
+
+    // Keep autoplay stable across browsers.
+    previewVideos.forEach((video) => {
+        video.muted = true;
+        video.volume = 0;
+
+        const playPromise = video.play();
+        if (playPromise && typeof playPromise.catch === 'function') {
+            playPromise.catch(() => {
+                // Some browsers delay autoplay; user interaction below will recover playback.
+            });
+        }
+    });
+
+    let soundEnabled = false;
+
+    const enableSound = () => {
+        if (soundEnabled) return;
+        soundEnabled = true;
+
+        previewVideos.forEach((video) => {
+            video.muted = false;
+            video.volume = 0.4;
+            if (video.paused) {
+                const playPromise = video.play();
+                if (playPromise && typeof playPromise.catch === 'function') {
+                    playPromise.catch(() => {
+                        // Leave controls to user if browser still blocks playback.
+                    });
+                }
+            }
+        });
+
+        const fancyboxVideo = document.querySelector('.fancybox__container video');
+        if (fancyboxVideo instanceof HTMLVideoElement) {
+            fancyboxVideo.muted = false;
+            fancyboxVideo.volume = 0.7;
+            const playPromise = fancyboxVideo.play();
+            if (playPromise && typeof playPromise.catch === 'function') {
+                playPromise.catch(() => {
+                    // If blocked, the user can use native controls.
+                });
+            }
+        }
+    };
+
+    const interactionEvents = ['pointerdown', 'touchstart', 'keydown'];
+    interactionEvents.forEach((eventName) => {
+        vodSection.addEventListener(eventName, enableSound, { once: true, passive: true });
+    });
 }
 
 /**
