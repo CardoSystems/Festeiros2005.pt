@@ -596,13 +596,7 @@ function setupVodAudioExperience() {
     previewVideos.forEach((video) => {
         video.muted = true;
         video.volume = 0;
-
-        const playPromise = video.play();
-        if (playPromise && typeof playPromise.catch === 'function') {
-            playPromise.catch(() => {
-                // Some browsers delay autoplay; user interaction below will recover playback.
-            });
-        }
+        video.pause();
     });
 
     let soundEnabled = false;
@@ -610,19 +604,23 @@ function setupVodAudioExperience() {
     const enableSound = () => {
         if (soundEnabled) return;
         soundEnabled = true;
+        vodContainer.dataset.soundEnabled = 'true';
 
-        previewVideos.forEach((video) => {
-            video.muted = false;
-            video.volume = 0.4;
-            if (video.paused) {
-                const playPromise = video.play();
+        const activeIndex = Number(vodContainer.dataset.activeVodIndex || '0');
+        const activeVideo = previewVideos[activeIndex] || previewVideos[0];
+
+        if (activeVideo instanceof HTMLVideoElement) {
+            activeVideo.muted = false;
+            activeVideo.volume = 0.4;
+            if (activeVideo.paused) {
+                const playPromise = activeVideo.play();
                 if (playPromise && typeof playPromise.catch === 'function') {
                     playPromise.catch(() => {
                         // Leave controls to user if browser still blocks playback.
                     });
                 }
             }
-        });
+        }
 
         const fancyboxVideo = document.querySelector('.fancybox__container video');
         if (fancyboxVideo instanceof HTMLVideoElement) {
@@ -647,6 +645,8 @@ function setupVodCarousel() {
     const carousel = document.querySelector('[data-vod-carousel]');
     if (!carousel) return;
 
+    const vodContainer = carousel.closest('.poster-vod');
+
     const track = carousel.querySelector('[data-vod-track]');
     const slides = track ? Array.from(track.querySelectorAll('.vod-card')) : [];
     const prevButton = carousel.querySelector('[data-vod-prev]');
@@ -659,42 +659,81 @@ function setupVodCarousel() {
     }
 
     let currentIndex = 0;
-    let autoRotateTimer;
+    let isSlideTransitioning = false;
+
+    const getPreviewVideo = (slideIndex) => {
+        const slide = slides[slideIndex];
+        return slide ? slide.querySelector('.vod-preview-video') : null;
+    };
+
+    const pauseNonActiveVideos = (activeIndex) => {
+        slides.forEach((slide, index) => {
+            const previewVideo = slide.querySelector('.vod-preview-video');
+            if (!(previewVideo instanceof HTMLVideoElement)) return;
+
+            // Disable looping so progression happens only when the clip ends.
+            previewVideo.loop = false;
+
+            if (index === activeIndex) return;
+            previewVideo.pause();
+            previewVideo.currentTime = 0;
+        });
+    };
+
+    const playActiveVideo = () => {
+        pauseNonActiveVideos(currentIndex);
+        const activeVideo = getPreviewVideo(currentIndex);
+        if (!(activeVideo instanceof HTMLVideoElement)) return;
+
+        const soundEnabled = vodContainer instanceof HTMLElement && vodContainer.dataset.soundEnabled === 'true';
+        activeVideo.muted = !soundEnabled;
+        activeVideo.volume = soundEnabled ? 0.4 : 0;
+
+        const playPromise = activeVideo.play();
+        if (playPromise && typeof playPromise.catch === 'function') {
+            playPromise.catch(() => {
+                // Browser autoplay policies may block playback until user interacts.
+            });
+        }
+    };
 
     const goToSlide = (index) => {
+        if (isSlideTransitioning) return;
+        isSlideTransitioning = true;
+
         const total = slides.length;
         currentIndex = (index + total) % total;
+        if (vodContainer instanceof HTMLElement) {
+            vodContainer.dataset.activeVodIndex = String(currentIndex);
+        }
         track.style.transform = `translateX(-${currentIndex * 100}%)`;
-    };
 
-    const startAutoRotate = () => {
-        stopAutoRotate();
-        autoRotateTimer = setInterval(() => {
-            goToSlide(currentIndex + 1);
-        }, 4500);
-    };
-
-    const stopAutoRotate = () => {
-        if (!autoRotateTimer) return;
-        clearInterval(autoRotateTimer);
-        autoRotateTimer = null;
+        setTimeout(() => {
+            isSlideTransitioning = false;
+            playActiveVideo();
+        }, 360);
     };
 
     prevButton.addEventListener('click', () => {
         goToSlide(currentIndex - 1);
-        startAutoRotate();
     });
 
     nextButton.addEventListener('click', () => {
         goToSlide(currentIndex + 1);
-        startAutoRotate();
     });
 
-    carousel.addEventListener('mouseenter', stopAutoRotate);
-    carousel.addEventListener('mouseleave', startAutoRotate);
+    slides.forEach((_, index) => {
+        const previewVideo = getPreviewVideo(index);
+        if (!(previewVideo instanceof HTMLVideoElement)) return;
+
+        previewVideo.addEventListener('ended', () => {
+            if (index !== currentIndex) return;
+            goToSlide(currentIndex + 1);
+        });
+    });
 
     goToSlide(0);
-    startAutoRotate();
+    playActiveVideo();
 }
 
 /**
