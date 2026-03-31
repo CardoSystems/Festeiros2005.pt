@@ -365,42 +365,57 @@ section {
 .sparkle.s7 { top: 58%; left: 80%; animation-delay: 4s; }
 .sparkle.s8 { top: 86%; right: 30%; animation-delay: 4.6s; }
 
-.vod-section {
-    margin: 30px auto 40px;
-    padding: 24px 18px;
-    border-radius: 20px;
-    background: linear-gradient(145deg, #0f2245 0%, #183466 45%, #23508f 100%);
-    box-shadow: 0 16px 32px rgba(11, 24, 49, 0.28);
+.poster-vod {
+    margin: 24px auto 6px;
+    padding: 18px 14px 16px;
+    border-radius: 18px;
+    background: linear-gradient(155deg, #0f2245 0%, #183466 52%, #245ba4 100%);
+    box-shadow: 0 16px 32px rgba(11, 24, 49, 0.26);
     color: #f4f8ff;
 }
 
-.vod-section h2 {
+.poster-vod-title {
     margin: 0;
-    font-size: 2rem;
-    letter-spacing: 1px;
+    font-size: 1.35rem;
+    letter-spacing: 0.9px;
     text-transform: uppercase;
 }
 
 .vod-subtitle {
-    margin: 8px 0 20px;
+    margin: 6px 0 14px;
     color: rgba(236, 244, 255, 0.9);
-    font-size: 1.03rem;
+    font-size: 0.98rem;
 }
 
-.vod-grid {
+.vod-carousel {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 16px;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 12px;
+}
+
+.vod-carousel-viewport {
+    overflow: hidden;
+    width: min(100%, 360px);
+    margin: 0 auto;
+}
+
+.vod-carousel-track {
+    display: flex;
+    transition: transform 0.35s ease;
 }
 
 .vod-card {
     position: relative;
-    border-radius: 16px;
+    flex: 0 0 100%;
+    border-radius: 18px;
     overflow: hidden;
     border: 1px solid rgba(173, 205, 255, 0.42);
     box-shadow: 0 14px 26px rgba(6, 11, 25, 0.35);
     display: block;
     background: #091326;
+    min-height: 70vh;
+    max-height: 76vh;
 }
 
 .vod-card::after {
@@ -414,9 +429,11 @@ section {
 .vod-preview-video {
     display: block;
     width: 100%;
-    aspect-ratio: 16 / 9;
-    object-fit: cover;
-    transform: scale(1.02);
+    height: 100%;
+    aspect-ratio: 9 / 16;
+    object-fit: contain;
+    background: #030712;
+    transform: scale(1.01);
     transition: transform 0.28s ease;
 }
 
@@ -438,6 +455,23 @@ section {
     font-size: 0.86rem;
     font-weight: 700;
     letter-spacing: 0.3px;
+}
+
+.vod-carousel-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.92);
+    color: #0f2245;
+    font-size: 1.3rem;
+    line-height: 1;
+    box-shadow: 0 8px 16px rgba(6, 11, 25, 0.25);
+}
+
+.vod-carousel-btn:hover {
+    background: #ffffff;
 }
 
 @keyframes floatSparkle {
@@ -922,17 +956,33 @@ body.popup-open {
         font-size: 1.5rem;
     }
 
-    .vod-section {
+    .poster-vod {
         padding: 18px 12px;
         border-radius: 14px;
     }
 
-    .vod-section h2 {
-        font-size: 1.45rem;
+    .poster-vod-title {
+        font-size: 1.2rem;
     }
 
     .vod-subtitle {
         font-size: 0.96rem;
+    }
+
+    .vod-carousel {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .vod-carousel-btn {
+        width: 36px;
+        height: 36px;
+        justify-self: center;
+    }
+
+    .vod-card {
+        min-height: 60vh;
+        max-height: 70vh;
     }
     
     .tagline {
@@ -985,8 +1035,9 @@ body.popup-open {
         font-size: 0.9rem;
     }
 
-    .vod-grid {
-        grid-template-columns: 1fr;
+    .vod-card {
+        min-height: 58vh;
+        max-height: 66vh;
     }
     
     h1 {

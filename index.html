@@ -80,38 +80,48 @@
                         <span>WhatsApp</span>
                     </a>
                 </div>
-            </section>
 
-            <section class="vod-section" id="vod">
-                <h2>VOD</h2>
-                <p class="vod-subtitle">Veja os melhores momentos. Os videos iniciam sem som e ativam audio apos a sua primeira interacao.</p>
-                <div class="vod-grid">
-                    <a href="update/vod1.mp4"
-                       class="vod-card"
-                       data-fancybox="vod"
-                       data-type="html5video"
-                       data-caption="VOD 1"
-                       data-width="1280"
-                       data-height="720"
-                       data-poster="update/party.png">
-                        <video class="vod-preview-video" muted autoplay loop playsinline preload="metadata" aria-label="Pre-visualizacao VOD 1">
-                            <source src="update/vod1.mp4" type="video/mp4" />
-                        </video>
-                        <span class="vod-play-badge" aria-hidden="true">Assistir</span>
-                    </a>
-                    <a href="update/vod2.mp4"
-                       class="vod-card"
-                       data-fancybox="vod"
-                       data-type="html5video"
-                       data-caption="VOD 2"
-                       data-width="1280"
-                       data-height="720"
-                       data-poster="update/party.png">
-                        <video class="vod-preview-video" muted autoplay loop playsinline preload="metadata" aria-label="Pre-visualizacao VOD 2">
-                            <source src="update/vod2.mp4" type="video/mp4" />
-                        </video>
-                        <span class="vod-play-badge" aria-hidden="true">Assistir</span>
-                    </a>
+                <div class="poster-vod" id="vod">
+                    <h3 class="poster-vod-title">VOD</h3>
+                    <p class="vod-subtitle">Carrossel em formato vertical. Os videos iniciam sem som e o audio ativa na primeira interacao.</p>
+
+                    <div class="vod-carousel" data-vod-carousel>
+                        <button type="button" class="vod-carousel-btn vod-carousel-btn--prev" data-vod-prev aria-label="Video anterior">&#10094;</button>
+
+                        <div class="vod-carousel-viewport" aria-live="polite">
+                            <div class="vod-carousel-track" data-vod-track>
+                                <a href="update/vod1.mp4"
+                                   class="vod-card"
+                                   data-fancybox="vod"
+                                   data-type="html5video"
+                                   data-caption="VOD 1"
+                                   data-width="1080"
+                                   data-height="1920"
+                                   data-poster="update/party.png">
+                                    <video class="vod-preview-video" muted autoplay loop playsinline preload="metadata" aria-label="Pre-visualizacao vertical VOD 1">
+                                        <source src="update/vod1.mp4" type="video/mp4" />
+                                    </video>
+                                    <span class="vod-play-badge" aria-hidden="true">Assistir</span>
+                                </a>
+
+                                <a href="update/vod2.mp4"
+                                   class="vod-card"
+                                   data-fancybox="vod"
+                                   data-type="html5video"
+                                   data-caption="VOD 2"
+                                   data-width="1080"
+                                   data-height="1920"
+                                   data-poster="update/party.png">
+                                    <video class="vod-preview-video" muted autoplay loop playsinline preload="metadata" aria-label="Pre-visualizacao vertical VOD 2">
+                                        <source src="update/vod2.mp4" type="video/mp4" />
+                                    </video>
+                                    <span class="vod-play-badge" aria-hidden="true">Assistir</span>
+                                </a>
+                            </div>
+                        </div>
+
+                        <button type="button" class="vod-carousel-btn vod-carousel-btn--next" data-vod-next aria-label="Proximo video">&#10095;</button>
+                    </div>
                 </div>
             </section>
 

@@ -30,6 +30,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Setup VOD muted autoplay + interaction-based sound enable
     setupVodAudioExperience();
+
+    // Setup poster VOD carousel navigation
+    setupVodCarousel();
     
     // Add current year to copyright
     const copyrightEl = document.querySelector('.copyright');
@@ -343,7 +346,7 @@ function setupFancyBox() {
         Video: {
             autoplay: true,
             ratio: 16/9,
-            fit: "cover",
+            fit: "contain",
             controls: true,
             clickSlide: "close",
         },
@@ -583,10 +586,10 @@ function setupFancyBox() {
 }
 
 function setupVodAudioExperience() {
-    const vodSection = document.getElementById('vod');
-    if (!vodSection) return;
+    const vodContainer = document.querySelector('.poster-vod');
+    if (!vodContainer) return;
 
-    const previewVideos = Array.from(vodSection.querySelectorAll('.vod-preview-video'));
+    const previewVideos = Array.from(vodContainer.querySelectorAll('.vod-preview-video'));
     if (!previewVideos.length) return;
 
     // Keep autoplay stable across browsers.
@@ -636,8 +639,62 @@ function setupVodAudioExperience() {
 
     const interactionEvents = ['pointerdown', 'touchstart', 'keydown'];
     interactionEvents.forEach((eventName) => {
-        vodSection.addEventListener(eventName, enableSound, { once: true, passive: true });
+        vodContainer.addEventListener(eventName, enableSound, { once: true, passive: true });
     });
+}
+
+function setupVodCarousel() {
+    const carousel = document.querySelector('[data-vod-carousel]');
+    if (!carousel) return;
+
+    const track = carousel.querySelector('[data-vod-track]');
+    const slides = track ? Array.from(track.querySelectorAll('.vod-card')) : [];
+    const prevButton = carousel.querySelector('[data-vod-prev]');
+    const nextButton = carousel.querySelector('[data-vod-next]');
+
+    if (!track || slides.length <= 1 || !prevButton || !nextButton) {
+        if (prevButton) prevButton.style.display = 'none';
+        if (nextButton) nextButton.style.display = 'none';
+        return;
+    }
+
+    let currentIndex = 0;
+    let autoRotateTimer;
+
+    const goToSlide = (index) => {
+        const total = slides.length;
+        currentIndex = (index + total) % total;
+        track.style.transform = `translateX(-${currentIndex * 100}%)`;
+    };
+
+    const startAutoRotate = () => {
+        stopAutoRotate();
+        autoRotateTimer = setInterval(() => {
+            goToSlide(currentIndex + 1);
+        }, 4500);
+    };
+
+    const stopAutoRotate = () => {
+        if (!autoRotateTimer) return;
+        clearInterval(autoRotateTimer);
+        autoRotateTimer = null;
+    };
+
+    prevButton.addEventListener('click', () => {
+        goToSlide(currentIndex - 1);
+        startAutoRotate();
+    });
+
+    nextButton.addEventListener('click', () => {
+        goToSlide(currentIndex + 1);
+        startAutoRotate();
+    });
+
+    carousel.addEventListener('mouseenter', stopAutoRotate);
+    carousel.addEventListener('mouseleave', startAutoRotate);
+
+    goToSlide(0);
+    startAutoRotate();
 }
 
 /**
